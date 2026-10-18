@@ -96,7 +96,7 @@ public final class MonayPay extends JavaPlugin implements TabExecutor {
                     }, ClickCallback.Options.builder().uses(1).build()))
                     .build(),
                 ActionButton.builder(Component.text("Cancel", NamedTextColor.RED)).build()
-            ));
+            )));
         sender.showDialog(dialog);
     }
 
