@@ -36,6 +36,9 @@ public final class MonayPay extends JavaPlugin implements TabExecutor {
 
     @Override
     public void onEnable() {
+        // Automatically creates the plugin folder and generates config.yml
+        saveDefaultConfig();
+
         if (Bukkit.getPluginManager().getPlugin("Vault") == null) {
             getLogger().severe("Vault was not found. MonayPay is disabling.");
             Bukkit.getPluginManager().disablePlugin(this);
