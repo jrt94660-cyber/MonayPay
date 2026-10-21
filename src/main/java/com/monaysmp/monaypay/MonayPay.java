@@ -1,4 +1,3 @@
-
 package com.monaysmp.monaypay;
 
 import io.papermc.paper.dialog.Dialog;
@@ -113,7 +112,7 @@ public final class MonayPay extends JavaPlugin implements TabExecutor {
 
                 DialogInput.text(
                         "amount",
-                        Component.text("Amount to send")
+                        Component.text("Amount to send (e.g. 100, 10k, 5m)")
                 ).initial("").maxLength(20).width(300).build()
         );
 
@@ -178,6 +177,26 @@ public final class MonayPay extends JavaPlugin implements TabExecutor {
         sender.showDialog(dialog);
     }
 
+    private BigDecimal parseAmount(String rawAmount) {
+        if (rawAmount == null) return null;
+        String clean = rawAmount.trim().toLowerCase(Locale.ROOT);
+
+        double multiplier = 1.0;
+        if (clean.endsWith("k")) {
+            multiplier = 1_000.0;
+            clean = clean.substring(0, clean.length() - 1);
+        } else if (clean.endsWith("m")) {
+            multiplier = 1_000_000.0;
+            clean = clean.substring(0, clean.length() - 1);
+        } else if (clean.endsWith("b")) {
+            multiplier = 1_000_000_000.0;
+            clean = clean.substring(0, clean.length() - 1);
+        }
+
+        BigDecimal baseValue = new BigDecimal(clean);
+        return baseValue.multiply(BigDecimal.valueOf(multiplier));
+    }
+
     private void openConfirmation(
             Player sender,
             String rawRecipient,
@@ -198,12 +217,10 @@ public final class MonayPay extends JavaPlugin implements TabExecutor {
         BigDecimal amount;
 
         try {
-            amount = new BigDecimal(
-                    rawAmount == null ? "" : rawAmount.trim()
-            ).setScale(2, RoundingMode.UNNECESSARY);
+            amount = parseAmount(rawAmount).setScale(2, RoundingMode.UNNECESSARY);
         } catch (Exception ex) {
             sender.sendMessage(Component.text(
-                    "Enter a valid amount with no more than 2 decimal places.",
+                    "Enter a valid amount (e.g. 100, 10k, 5m).",
                     NamedTextColor.RED
             ));
             return;
