@@ -104,6 +104,12 @@ public final class MonayPay extends JavaPlugin implements TabExecutor {
     }
 
     private void openPaymentForm(Player sender) {
+        List<String> onlineNames = Bukkit.getOnlinePlayers().stream()
+                .map(Player::getName)
+                .filter(name -> !name.equalsIgnoreCase(sender.getName()))
+                .sorted(String.CASE_INSENSITIVE_ORDER)
+                .toList();
+
         List<DialogInput> inputs = List.of(
                 DialogInput.text(
                         "recipient",
@@ -128,6 +134,17 @@ public final class MonayPay extends JavaPlugin implements TabExecutor {
                                         Component.text(
                                                 "Enter a player and the amount you want to send.",
                                                 NamedTextColor.GRAY
+                                        )
+                                ),
+                                DialogBody.plainMessage(
+                                        Component.text(
+                                                onlineNames.isEmpty()
+                                                        ? "Online players: none available to pay right now."
+                                                        : "Online players (" + onlineNames.size() + "): "
+                                                                + String.join(", ", onlineNames),
+                                                onlineNames.isEmpty()
+                                                        ? NamedTextColor.RED
+                                                        : NamedTextColor.AQUA
                                         )
                                 )
                         ))
