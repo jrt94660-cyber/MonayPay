@@ -3,7 +3,7 @@
 
   <groupId>com.monaysmp</groupId>
   <artifactId>MonayPay</artifactId>
-  <version>1.0.1</version>
+  <version>1.5.0</version>
 
   <properties>
     <maven.compiler.release>25</maven.compiler.release>
@@ -38,7 +38,7 @@
   </dependencies>
 
   <build>
-    <finalName>MonayPay-1.0.1</finalName>
+    <finalName>MonayPay-1.5.0</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
