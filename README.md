@@ -1,9 +1,9 @@
-# MonayPay 1.0.0
+# MonayPay 1.5.0
 
 Native Minecraft Dialog payment plugin for MonaySMP. Uses Vault's Economy service (intended for ExcellentEconomy + Vault).
 
 ## Features
-- `/pay` opens a native dialog with recipient and amount inputs.
+- `/pay` opens a native dialog with recipient and amount inputs, plus a live snapshot of other online players.
 - `/pay <player> <amount>` opens a native confirmation dialog.
 - Confirms recipient and amount before transfer.
 - Rechecks online status and balance at confirmation time.
@@ -11,7 +11,7 @@ Native Minecraft Dialog payment plugin for MonaySMP. Uses Vault's Economy servic
 - Uses Vault withdraw/deposit responses and attempts a refund if recipient deposit fails.
 
 ## Build
-Requires JDK 21 and Maven. Run `mvn clean package`; output is `target/MonayPay-1.0.0.jar`.
+Requires JDK 21 and Maven. Run `mvn clean package`; output is `target/MonayPay-1.5.0.jar`.
 
 Alternatively, push this project to a GitHub repository and run **Actions → Build MonayPay → Run workflow**. The JAR is published as a workflow artifact.
 
